@@ -86,3 +86,60 @@ function checkSyrup(Syrup){
     }
     return isSyrupEnough
 }
+
+window.addEventListener("load", function(event) {
+  const buttonEspresso = document.getElementById('espresso'); 
+  const buttonLatte=document.getElementById('latte'); 
+  const buttonCappuccino=document.getElementById('cappuccino');
+  const buttonBanana=document.getElementById('banana'); 
+  const buttonVanilla=document.getElementById('vanilla'); 
+  const buttonFlet=document.getElementById('flet'); 
+  const buttonMilk=document.getElementById('milk'); 
+  const buttonSyrup=document.getElementById('syrup'); 
+  const board = document.getElementById('board'); 
+    
+  buttonEspresso.addEventListener("click", function(){
+    board.style.visibility = 'visible'; 
+    board.src='espresso.png';
+    
+  })
+  
+  buttonLatte.addEventListener("click", function(){
+    board.style.visibility = 'visible'; 
+    board.src='latte.png';
+    
+  })
+
+  buttonCappuccino.addEventListener("click", function(){
+    board.style.visibility = 'visible'; 
+    board.src='cap.png';
+    
+
+  })
+
+  buttonBanana.addEventListener("click", function(){
+    board.style.visibility = 'visible'; 
+    board.src='banana.png';
+    
+  })
+  
+  buttonVanilla.addEventListener("click", function(){
+    board.style.visibility = 'visible'; 
+    board.src='vanilla.png';
+    
+  })
+
+  buttonFlet.addEventListener("click", function(){
+    board.style.visibility = 'visible'; 
+    board.src='flet.png';
+  })
+
+  buttonMilk.addEventListener("click", function(){
+    boardMilk.style.visibility = 'visible'; 
+  })
+
+  
+  buttonSyrup.addEventListener("click", function(){
+    boardSyrup.style.visibility = 'visible'; 
+  })
+})

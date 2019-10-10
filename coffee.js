@@ -25,7 +25,7 @@ const cost = {
     'ФЛЭТ УАЙТ': 120
   }
 
-  const glasses = {
+  let glasses = {
       '250': 5,
       '380':6
   }
@@ -48,7 +48,7 @@ const cost = {
     'ВИШНЕВЫЙ СИРОП': 50
   }
 
-  const VolumeSyrupMilk = {
+  let VolumeSyrupMilk = {
       'ВАНИЛЬНЫЙ':500,
       'БАНАНОВЫЙ':500,
       'ВИШНЕВЫЙ':500,
@@ -56,4 +56,33 @@ const cost = {
   }
 
 
-  
+function checkGlasses(){
+    let isGlassesEnough = true;
+        if (glasses[380] < 1) {
+          console.log(`--Памятка: Нужно заказать стаканы`);
+          isGlassesEnough = false;
+          return isGlassesEnough
+        }
+      return isGlassesEnough
+    }
+
+function checkMilk(coffee){
+    let isMilkEnough = true;
+    if (VolumeSyrupMilk["МОЛОКО"]< MilkSpending[coffee.toUpperCase()]){
+        console.log(`--Памятка: Нужно заказать молоко`);
+        isMilkEnough = false;
+        return isMilkEnough;
+    }
+    return isMilkEnough
+}
+
+
+function checkSyrup(Syrup){
+    let isSyrupEnough = true;
+    if (VolumeSyrupMilk[Syrup]< 50 ){
+        console.log(`--Памятка: Нужно заказать  ${Syrup}`);
+        isSyrupEnough = false;
+        return isSyrupEnough;
+    }
+    return isSyrupEnough
+}

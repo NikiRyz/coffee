@@ -27,38 +27,43 @@
 <body>
 
     <div class="user-choice">
-
-        <div class="coffe">  </div>
-        <div class="syrup"> </div>
-        <div class="milk"> </div>
-
+        <div class="drink">
+        <div class="coffe"> <img src="i2.webp" ></div>
+        <div class="syrup"><img src="i.webp" > </div>
+        <div class="milk"> <img src="i3.webp" ></div>
+        </div>
+        <div class="full">
         <p class="full_order">Ваш заказ : </p>
-
+        <br>
         <p class="full_amounts"> Общая сумма заказа : </p>
-
+      </div>
         <button class="close">
             <img src="https://cdn.icon-icons.com/icons2/1244/PNG/512/1492790846-9cancel_84247.png">
         </button>
 
     </div>
 
-    <div class="menu">
-
-      <div class=" custom item-menu">ЭСПРЕССО  </div>
-      <div class="custom item-menu "> ЛАТТЕ </div>
-      <div class="custom item-menu"> КАПУЧИНО  </div>
-      <div class="item-menu"> БАНАННОВЫЙ ЛАТТЕ </div>
-      <div class="item-menu"> ВАНИЛЬНЫЙ КАПУЧИНО </div>
-      <div class="item-menu"> ФЛЭТ УАЙТ </div>
-      <div class="item-menu-milk">МОЛОКО </div>
-      <div class="item-menu-syrup">ВИШНЕВЫЙ СИРОП </div>
+    <div class="menu"> 
+      <div  class="custom" >
+      <div class="item-menu"  id="menu" onclick="checkGlasses()">ЭСПРЕССО  </div>
+      <div class="item-menu" id="menu"> ЛАТТЕ </div>
+      <div class="item-menu" id="menu"> КАПУЧИНО  </div>
+    </div>
+    <div  class="author" >
+      <div class="item-menu" id="menu"> БАНАННОВЫЙ ЛАТТЕ </div>
+      <div class="item-menu" id="menu"> ВАНИЛЬНЫЙ КАПУЧИНО </div>
+      <div class="item-menu" id="menu"> ФЛЭТ УАЙТ </div>
+    </div>
+    <div class="additionally">
+      <div class="item-menu-milk" >МОЛОКО </div>
+      <div class="item-menu-syrup" >ВИШНЕВЫЙ СИРОП </div>
       <div class="item-menu-pay"> ОПЛАТИТЬ </div>
-
+    </div>
     </div>
 
 
 
-
+<script src="coffee.js"></script>
 </body>
 
 

@@ -8,7 +8,7 @@ body{
     display:flex;
     flex-direction: row;
     margin: 2em;
-    background-color: rgb(196, 146, 82);
+    background-color: rgb(68, 52, 30);
     
     }
 
@@ -33,9 +33,18 @@ body{
     width: 6rem;
     height: 6rem;
     object-fit: cover;
-    visibility: hidden;
-      
+    visibility: hidden;   
 }
+
+
+    .user-choice  input{
+    visibility: hidden;
+    text-align: center;
+    width: 2rem;   
+    margin-left: 1.9em;
+    border-radius:50%; 
+}
+
 .user-choice .drink div{
     margin: 0 5%;    
 }
@@ -49,6 +58,15 @@ body{
     width: 30%;
 }
 
+.cost, .name {
+    display: flex;
+    flex-direction: row;
+   
+}
+.cost input{
+    margin-left: 1em;
+    border:0;
+}
 /* основное меню*/
 
 .menu{
@@ -72,21 +90,21 @@ body{
 .menu .custom div{
  margin: 1em;   
  width: 30%;
- background-color: rgba(196, 147, 82, 0.884);
+ background-color: rgb(196, 147, 82);
  padding: 1.5em;
 }
 
 .menu .author div{
     margin: 1em;   
     width: 30%;
-    background-color: rgba(196, 147, 82, 0.884);
+    background-color: rgb(196, 147, 82);
     padding: 1.5em;
    }
 
    .menu .additionally div{
     margin: 1em;   
     width: 30%;
-    background-color: rgba(196, 147, 82, 0.884);
+    background-color: rgb(196, 147, 82);
     padding: 1.5em;
    }
 

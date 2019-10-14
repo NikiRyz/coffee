@@ -127,3 +127,11 @@ body {
   padding: 2em;
   margin: 0.5em;
 }
+
+
+.extradition-container progress {
+  width: 80%;
+  margin-top:2em;
+  margin-left: 7%;
+
+}

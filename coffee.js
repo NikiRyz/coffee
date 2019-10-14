@@ -1,385 +1,435 @@
 const cost = {
-    'ЭСПРЕССО':90,
-    'ЛАТТЕ': 130, 
-    'КАПУЧИНО': 110, 
-    'БАНАНОВЫЙ ЛАТТЕ': 150, 
-    'ВАНИЛЬНЫЙ КАПУЧИНО': 150, 
-    'ФЛЭТ УАЙТ': 100,
-    'МОЛОКО': 25,
-    'ВИШНЕВЫЙ СИРОП': 35
-  }
+  'ЭСПРЕССО':90,
+  'ЛАТТЕ': 130, 
+  'КАПУЧИНО': 110, 
+  'БАНАНОВЫЙ ЛАТТЕ': 150, 
+  'ВАНИЛЬНЫЙ КАПУЧИНО': 150, 
+  'ФЛЭТ УАЙТ': 100,
+  'МОЛОКО': 25,
+  'ВИШНЕВЫЙ СИРОП': 35
+}
 
-  const temperature = {
-    'ЭСПРЕССО':90,
-    'МОЛОКО': 85,
-    'ЛАТТЕ': 93, 
-    'КАПУЧИНО': 93, 
-    'БАНАНОВЫЙ ЛАТТЕ': 93, 
-    'ВАНИЛЬНЫЙ КАПУЧИНО': 93, 
-    'ФЛЭТ УАЙТ': 100
-  }
+const MilkSpending ={
+  'ЛАТТЕ': 100, 
+  'КАПУЧИНО': 80, 
+  'ФЛЭТ УАЙТ': 120,
+  'МОЛОКО': 50
+}
+let syrupCoffee = {
+  'БАНАНОВЫЙ ЛАТТЕ':  'БАНАНОВЫЙ',
+  'ВАНИЛЬНЫЙ КАПУЧИНО': 'ВАНИЛЬНЫЙ'
+}
 
-  const MilkSpending ={
-    'ЛАТТЕ': 100, 
-    'КАПУЧИНО': 80, 
-    'ФЛЭТ УАЙТ': 120,
-    'МОЛОКО': 50
-  }
+const Volume ={
+  'ЭСПРЕССО':100,
+  'ЛАТТЕ': 250, 
+  'КАПУЧИНО': 250, 
+  'БАНАНОВЫЙ ЛАТТЕ': 300, 
+  'ВАНИЛЬНЫЙ КАПУЧИНО': 300, 
+  'ФЛЭТ УАЙТ': 280,
+  'МОЛОКО': 50,
+  'ВИШНЕВЫЙ СИРОП': 50
+}
 
-  let glasses = {
-      '250': 5,
-      '380':6
-  }
-
-
-  const time = {
-    'main':3,
-    'author':5,
-    'custom':8
-  }
-
-  const Volume ={
-    'ЭСПРЕССО':100,
-    'ЛАТТЕ': 250, 
-    'КАПУЧИНО': 250, 
-    'БАНАНОВЫЙ ЛАТТЕ': 300, 
-    'ВАНИЛЬНЫЙ КАПУЧИНО': 300, 
-    'ФЛЭТ УАЙТ': 280,
-    'МОЛОКО': 50,
-    'ВИШНЕВЫЙ СИРОП': 50
-  }
-
-  let VolumeSyrupMilk = {
-      'ВАНИЛЬНЫЙ':500,
-      'БАНАНОВЫЙ':500,
-      'ВИШНЕВЫЙ':500,
-      'МОЛОКО':1000
-  }
-
-  let syrupCoffee = {
-    'БАНАНОВЫЙ ЛАТТЕ':  'БАНАНОВЫЙ',
-    'ВАНИЛЬНЫЙ КАПУЧИНО': 'ВАНИЛЬНЫЙ'
-  }
+let VolumeSyrupMilk = {
+    'ВАНИЛЬНЫЙ':500,
+    'БАНАНОВЫЙ':500,
+    'ВИШНЕВЫЙ':500,
+    'МОЛОКО':1000
+}
 
 
+let glasses = {
+  '250': 5,
+  '380':6
+}
+
+const temperature = {
+  'ЭСПРЕССО':90,
+  'МОЛОКО': 85,
+  'ЛАТТЕ': 93, 
+  'КАПУЧИНО': 93, 
+  'БАНАНОВЫЙ ЛАТТЕ': 93, 
+  'ВАНИЛЬНЫЙ КАПУЧИНО': 93, 
+  'ФЛЭТ УАЙТ': 100
+}
+const time = {
+  'main':3,
+  'author':5,
+  'custom':8
+}
+
+//проверяют наличие ингредиентов в кофемашине
 function checkGlasses(){
-    let isGlassesEnough = true;
-        if (glasses[380] < 1) {
-          console.log(`--Памятка: Нужно заказать стаканы`);
-          isGlassesEnough = false;
-          return isGlassesEnough
-        }
-      return isGlassesEnough
-    }
+      if (glasses[250] < 1) {
+        console.log(`Памятка: Нужно заказать стаканы 250мл`);
+      }
+      if (glasses[380] < 1) {
+        console.log(`Памятка: Нужно заказать стаканы 380мл`);
+        return false
+      }
+    return true
+  }
+
 
 function checkMilk(coffee){
-  
-    let isMilkEnough = true;
-    if(typeof MilkSpending[coffee] !== "undefined"){
-    if (VolumeSyrupMilk["МОЛОКО"]< MilkSpending[coffee.toUpperCase()]){
-        console.log(`--Памятка: Нужно заказать молоко`);
-        isMilkEnough = false;
-        return isMilkEnough;
-    }
+  if(typeof MilkSpending[coffee] !== "undefined"){
+  if (VolumeSyrupMilk["МОЛОКО"]< MilkSpending[coffee.toUpperCase()]){
+      console.log(`Памятка: Нужно заказать молоко`);
+      return false
   }
-    return isMilkEnough
+}
+  return true
 }
 
 
 function checkSyrup(Syrup){
-    
-    if (VolumeSyrupMilk[Syrup]< 50 ){
-        console.log(`--Памятка: Нужно заказать  ${Syrup}`);
-      
-        return false;
-    }
-    return true
-}
-//проверяют наличие всех ингредиентов
-function baseDrinks(coffee){
-    let glasses=checkGlasses();
-    let milk=checkMilk(coffee);
-    if (glasses===false || milk===false){
+  if (VolumeSyrupMilk[Syrup]< 50){
+      console.log(`Памятка: Нужно заказать  ${Syrup}`);
       return false;
-    }
-    return true;
+  }
+  return true
 }
 
-function authorDrinks(coffee){
-  let check = baseDrinks(coffee);
-  let checksyrup = checkSyrup(syrupCoffee[coffee])
-  if (coffee== "ФЛЭТ УАЙТ" && check===false){
-    return false;
-  }
-  if (coffee!= "ФЛЭТ УАЙТ" && check===false || checksyrup===false )
-  {
+
+// считает объем напитка в стакане
+function calculateVolumeGlasses(allvolume, filler){
+let newallVolume = allvolume + Volume[filler];
+return newallVolume;
+}
+
+//выбрать объем стакана
+function chooseGlass(allvolume){
+let glass=0;
+if(allvolume <= 250){
+  glass=250;
+  return glass;
+}
+else {
+  glass = 380;
+  return glass;
+}
+}
+
+// проверяет возможность долить в стакан что-то еще
+function checkVolume(coffee,syrup,milk){
+  let allvolume=Number(coffee)+Number(syrup)+Number(milk)
+  console.log(allvolume)
+let glass= chooseGlass(allvolume);
+console.log(glass)
+if(allvolume<=glass){
+
+  return true
+} else{
+  return false
+}
+}
+
+
+//считает стоимость
+function calculateCost( allcost,item){
+return allcost+cost[item];
+}
+
+//проверяют наличие всех ингредиентов для напитках
+function baseDrinks(coffee){
+  let glasses=checkGlasses();
+  let milk=checkMilk(coffee);
+  if (glasses===false || milk===false){
     return false;
   }
   return true;
 }
 
-// считает объем напитка в стакане
-function calculateVolumeGlasses(volume, filler){
-  let allVolume = volume + Volume[filler];
-  return allVolume;
+function authorDrinks(coffee){
+let check = baseDrinks(coffee);
+let checksyrup = checkSyrup(syrupCoffee[coffee])
+if (coffee== "ФЛЭТ УАЙТ" && check===false){
+  return false;
+}
+if (coffee!= "ФЛЭТ УАЙТ" && check===false || checksyrup===false )
+{
+  return false;
+}
+return true;
 }
 
-//выбрать объем стакана
-function chooseGlass(volume){
-  let glass=0;
-  if(volume<=250 && glasses[250]>0){
-    glass=250;
-    return glass;
+
+//функции для кнопок
+function buttonBaseCoffee(coffee,img,coffee1,costCoffee,name,type){
+  let checkIngredients;
+  const buttonMilk=document.getElementById('milk'); 
+  const buttonSyrup=document.getElementById('syrup');
+
+  if(type==='author'){ 
+    checkIngredients= authorDrinks(coffee);
+    buttonMilk.style.visibility = 'hidden'; 
+    buttonSyrup.style.visibility = 'hidden'; 
   }
-  else if(volume<=380 && glasses[380]>0 ){
-    glass=380;
-    return glass;
+  else{checkIngredients= baseDrinks(coffee);
+    buttonMilk.style.visibility ='visible'; 
+    buttonSyrup.style.visibility ='visible'; 
+  }
+ 
+  if(checkIngredients===true){
+    board.style.visibility = 'visible'; 
+    board.src=img;
+    board.alt=' ';
+    if(coffee1!==coffee){
+      coffee1 = coffee;
+      Cost= calculateCost( 0,coffee);
+      costCoffee.placeholder= Cost; 
+      costCoffee.style.visibility = 'visible';
+      name.innerHTML=  coffee1.toLowerCase();
+      name.style.visibility ='visible'; 
+    }
   }
   else{
-    glass=0;
-    return glass;
-  }
+    board.src=' '; 
+    board.style.visibility = 'hidden'; 
+  }    
 }
-//считает стоимость
-function calculateCost( Cost,item){
- return Cost+cost[item];
-}
-
 
 window.addEventListener("load", function(event) {
-  const buttonEspresso = document.getElementById('espresso'); 
-  const buttonLatte=document.getElementById('latte'); 
-  const buttonCappuccino=document.getElementById('cappuccino');
-  const buttonBanana=document.getElementById('banana'); 
-  const buttonVanilla=document.getElementById('vanilla'); 
-  const buttonFlet=document.getElementById('flet'); 
-  const buttonMilk=document.getElementById('milk'); 
-  const buttonSyrup=document.getElementById('syrup'); 
-  const buttonClose=document.getElementById('close'); 
-  const buttonPay=document.getElementById('pay'); 
-  const Syrup=document.getElementById('countSyrup'); 
-  const Milks=document.getElementById('countMilk'); 
-  const costCoffee=document.getElementById('cost'); 
-  const name=document.getElementById('name'); 
-  const name1=document.getElementById('name1');
-  const name2=document.getElementById('name2');
-  const board = document.getElementById('board'); 
-  let countSyrup=0;
-  let Cost = 0;
-  let AllCost=0;
-  let volume = 0;
-  let volumeSyrup=0;
-  let milk = 0;
-  let syrupVanilla = 0;
-  let syropBanana = 0;
-  let glass =250;
-  let coffee1 =' ';
-  buttonEspresso.addEventListener("click", function(){
-    let coffee = 'ЭСПРЕССО';
-    let checkIngredients= baseDrinks(coffee);
-    let checkVolume= calculateVolumeGlasses(volume, coffee);
-    glass = chooseGlass(checkVolume);
-    Cost=0;
-    if(checkIngredients===true && glass!==0 ){
-      board.style.visibility = 'visible'; 
-      board.src='espresso.png';
-      board.alt=' ';
-      if(coffee1!==coffee){
-        coffee1 = 'ЭСПРЕССО';
-        Cost= calculateCost( Cost,coffee);
-        costCoffee.placeholder= Cost+AllCost; 
-        costCoffee.style.visibility = 'visible';
-        name.innerHTML=  coffee1.toLowerCase();
-      }
-    }
-    else{
-      board.src=' '; 
-      board.style.visibility = 'hidden'; 
-    }
-        
-  })
-  
-  buttonLatte.addEventListener("click", function(){
-    let coffee = 'ЛАТТЕ';
-    let checkIngredients= baseDrinks(coffee);
-    let checkVolume= calculateVolumeGlasses(volume, coffee);
-    glass = chooseGlass(checkVolume);
-    Cost=0;
-    if(checkIngredients===true && glass!==0){
-      board.style.visibility = 'visible'; 
-      board.src='latte.png';
-      board.alt=' ';
-      if(coffee1!==coffee){
-        coffee1 = 'ЛАТТЕ';
-        Cost= calculateCost( Cost,coffee);
-        costCoffee.placeholder= Cost+AllCost; 
-        costCoffee.style.visibility = 'visible';
-        name.innerHTML= coffee1.toLowerCase();
-      }
-    }
-  
-    else{
-      board.src=' '; 
-      board.style.visibility = 'hidden'; 
+const buttonEspresso = document.getElementById('espresso'); 
+const buttonLatte=document.getElementById('latte'); 
+const buttonCappuccino=document.getElementById('cappuccino');
+const buttonBanana=document.getElementById('banana'); 
+const buttonVanilla=document.getElementById('vanilla'); 
+const buttonFlet=document.getElementById('flet'); 
+const buttonMilk=document.getElementById('milk'); 
+const buttonSyrup=document.getElementById('syrup'); 
+const buttonClose=document.getElementById('close'); 
+const buttonPay=document.getElementById('pay'); 
+const costCoffee=document.getElementById('cost'); 
+const name=document.getElementById('name'); 
+const name1=document.getElementById('name1');
+const name2=document.getElementById('name2');
+const board = document.getElementById('board'); 
+const boardMilk = document.getElementById('boardMilk'); 
+const boardSyrup = document.getElementById('boardSyrup'); 
+let countSyrup=0;
+let countMilk=0;
+let coffee1 =0;
+let CostSyrup=0;
+let CostMilk=0;
+let CostCoffee=0;
+let volumeCoffe = 0;
+let volumeSyrup=0;
+let volumeMilk = 0;
+buttonSyrup.style.visibility = 'hidden'; 
 
-    }
+
+buttonEspresso.addEventListener("click", function(){
+
+  buttonBaseCoffee("ЭСПРЕССО","img/espresso.png",coffee1,costCoffee,name,"base");
+  volumeCoffe = Volume["ЭСПРЕССО"];
+  CostCoffee = cost["ЭСПРЕССО"];
+  name.style.visibility = 'visible'; 
+  coffee1="ЭСПРЕССО";
+  
+}  
+)
+
+buttonLatte.addEventListener("click", function(){
+  buttonBaseCoffee("ЛАТТЕ","img/latte.png",coffee1,costCoffee,name,"base");
+  volumeCoffe = Volume["ЛАТТЕ"];
+  CostCoffee = cost["ЛАТТЕ"];
+  name.style.visibility = 'visible'; 
+  coffee1="ЛАТТЕ";
+})
+
+buttonCappuccino.addEventListener("click", function(){
+  buttonBaseCoffee("КАПУЧИНО","img/cap.png",coffee1,costCoffee,name,"base");
+  volumeCoffe = Volume["КАПУЧИНО"];
+  CostCoffee = cost["КАПУЧИНО"];
+  name.style.visibility = 'visible'; 
+  coffee1="КАПУЧИНО";
+})
+
+buttonBanana.addEventListener("click", function(){
+  buttonBaseCoffee("БАНАНОВЫЙ ЛАТТЕ","img/banana.png",coffee1,costCoffee,name,"author");
+  volumeCoffe = Volume["БАНАНОВЫЙ ЛАТТЕ"];
+  CostCoffee = cost["БАНАНОВЫЙ ЛАТТЕ"];
+  name.style.visibility ='visible'; 
+  coffee1="БАНАНОВЫЙ ЛАТТЕ";
+})
+
+buttonVanilla.addEventListener("click", function(){
+  buttonBaseCoffee("ВАНИЛЬНЫЙ КАПУЧИНО","img/vanilla.png",coffee1,costCoffee,name,"author");
+  volumeCoffe = Volume["ВАНИЛЬНЫЙ КАПУЧИНО"];
+  CostCoffee = cost["ВАНИЛЬНЫЙ КАПУЧИНО"];
+  name.style.visibility = 'visible'; 
+  coffee1="ВАНИЛЬНЫЙ КАПУЧИНО";
+})
+
+buttonFlet.addEventListener("click", function(){
+  buttonBaseCoffee("ФЛЭТ УАЙТ","img/flet.png",coffee1,costCoffee,name,"author");
+  volumeCoffe = Volume["ФЛЭТ УАЙТ"];
+  CostCoffee = cost["ФЛЭТ УАЙТ"];
+  name.style.visibility = 'visible'; 
+  coffee1="ФЛЭТ УАЙТ";
+})
+
+buttonMilk.addEventListener("click", function(){
+
+ let check = checkMilk("МОЛОКО");
+ 
+ let check2=checkGlasses();
+
+ if(coffee1===0 && check===true && check2===true){
+   console.log(coffee1)
+  countMilk++;
+   if(countMilk==1 &&  VolumeSyrupMilk["МОЛОКО"]-250>=0){
+    name1.innerHTML=  "стакан молока 250мл";
+    name1.style.visibility = 'visible'; 
+    CostCoffee = 125;
+    costCoffee.placeholder=  CostCoffee; 
+    volumeMilk =250;
+    boardMilk.style.visibility = 'visible'; 
+    costCoffee.style.visibility = 'visible'; 
+    buttonSyrup.style.visibility = 'visible'; 
+    buttonEspresso.style.visibility = ' hidden';
+    buttonCappuccino.style.visibility = ' hidden'; 
+     buttonLatte.style.visibility = ' hidden'; 
+    buttonBanana.style.visibility = ' hidden'; 
+    buttonVanilla.style.visibility = ' hidden'; 
+     buttonFlet.style.visibility = ' hidden'; 
+   }
+   if(countMilk==2 &&  VolumeSyrupMilk["МОЛОКО"]-250>=0 ){
+    name1.innerHTML=  "стакан молока 380мл";
+    name1.style.visibility = 'visible'; 
+    CostCoffee =175;
+    costCoffee.placeholder=  CostCoffee;   
+    volumeMilk = 380;
+    buttonSyrup.style.visibility = 'hidden'; 
+   }
+ }
+ else{
+  
+  if(check===true && check2===true){
+    coffee1="МОЛОКО";
+    countMilk++;
+    volumeMilk +=50;
+    let check1 = checkVolume(volumeCoffe,volumeSyrup,volumeMilk);
     
-  })
-
-  buttonCappuccino.addEventListener("click", function(){
-    let coffee = 'КАПУЧИНО';
-    let checkIngredients= baseDrinks(coffee);
-    let checkVolume= calculateVolumeGlasses(volume, coffee);
-    glass = chooseGlass(checkVolume);
-    Cost=0;
-    volume =0;
-    if(checkIngredients===true && glass!==0){
-      board.style.visibility = 'visible'; 
-      board.src='cap.png';
-      board.alt=' ';
-      if(coffee1!==coffee){
-        coffee1 = 'КАПУЧИНО';
-        Cost= calculateCost( Cost,coffee);
-        costCoffee.placeholder= Cost+AllCost; 
-        costCoffee.style.visibility = 'visible';
-        volume+=milk;
-        name.innerHTML= coffee1.toLowerCase();
-      }
-    }
-    else{
-      board.src=' '; 
-      board.style.visibility = 'hidden'; 
-    }
-  })
-
-  buttonBanana.addEventListener("click", function(){
-    let coffee = 'БАНАНОВЫЙ ЛАТТЕ';
-    let checkIngredients= authorDrinks(coffee);
-    let checkVolume= calculateVolumeGlasses(volume, coffee);
-    glass = chooseGlass(checkVolume);
-    Cost=0;
-    if(checkIngredients===true && glass!==0){
-      board.style.visibility = 'visible'; 
-      board.src='banana.png';
-      board.alt=' ';
-      if(coffee1!==coffee){
-        coffee1 = 'БАНАНОВЫЙ ЛАТТЕ';
-        Cost= calculateCost( Cost,coffee);
-        costCoffee.placeholder= Cost; 
-        costCoffee.style.visibility = 'visible';
-        name.innerHTML= coffee1.toLowerCase();
-      }
-    }
-    else{
-      board.src=' '; 
-      board.style.visibility = 'hidden'; 
-    }
-    
-  })
-  
-  buttonVanilla.addEventListener("click", function(){
-    let coffee = 'ВАНИЛЬНЫЙ КАПУЧИНО';
-    let checkIngredients= authorDrinks(coffee);
-    let checkVolume= calculateVolumeGlasses(volume, coffee);
-    glass = chooseGlass(checkVolume);
-    Cost=0;
-    if(checkIngredients===true && glass!==0){
-      board.style.visibility = 'visible'; 
-      board.src='vanilla.png';
-      board.alt=' ';
-      if(coffee1!==coffee){
-        coffee1 = 'ВАНИЛЬНЫЙ КАПУЧИНО';
-        Cost= calculateCost( Cost,coffee);
-        costCoffee.placeholder= Cost; 
-        costCoffee.style.visibility = 'visible';
-        name.innerHTML= coffee1.toLowerCase();
-      }
-    }
-    else{
-      board.src=' '; 
-      board.style.visibility = 'hidden'; 
-    }
-
-  })
-
-  buttonFlet.addEventListener("click", function(){
-    let coffee = 'ФЛЭТ УАЙТ';
-    let checkIngredients= authorDrinks(coffee);
-    let checkVolume= calculateVolumeGlasses(volume, coffee);
-    glass = chooseGlass(checkVolume);
-    Cost=0;
-    if(checkIngredients===true && glass!==0){
-      board.style.visibility = 'visible'; 
-      board.src='flet.png';
-      board.alt=' ';
-      if(coffee1!==coffee){
-        coffee1 = 'ФЛЭТ УАЙТ';
-        Cost= calculateCost( Cost,coffee);
-        costCoffee.placeholder= Cost; 
-        costCoffee.style.visibility = 'visible';
-        name.innerHTML= coffee1.toLowerCase();
-      }
-    }
-    else{
-      board.src=' '; 
-        board.style.visibility = 'hidden'; 
-    }
-
-  })
-
-  buttonMilk.addEventListener("click", function(){
-    let Milk='МОЛОКО';
-    let checkmilk=checkMilk(Milk);
-    let checkVolume= calculateVolumeGlasses(volume, Milk);
-    glass = chooseGlass(checkVolume);
-    if(checkmilk===true && glass!==0){
+    if(check1===true && countMilk===1){
+      name1.innerHTML="с молоком";
+      name1.style.visibility = 'visible'; 
+      CostMilk+=25;
+      let AllCost=CostCoffee+CostMilk+CostSyrup;
+      costCoffee.placeholder=  AllCost; 
       boardMilk.style.visibility = 'visible'; 
-      boardMilk.src='milk.png';
-      boardMilk.alt=' ';
-      AllCost= calculateCost( AllCost,Milk);
-
-        if(milk+50 <= glass){
-        costCoffee.placeholder= Cost+AllCost; 
-        costCoffee.style.visibility = 'visible';
-        name1.innerHTML = 'с молоком';
-        milk+=50;
-        Milks.placeholder=milk;
-        volume+=milk;
-        }
+      costCoffee.style.visibility = 'visible'; 
+    } 
+    if(countMilk>=1){
+      volumeMilk -=50;
+      buttonMilk.style.visibility = 'hidden'; 
+   
     }
-    else{
-      Milks.placeholder=milk;
-    }
-    Milks.style.visibility = 'visible';
-  })
 
+  }
+ }
+})
+
+
+buttonSyrup.addEventListener("click", function(){
+ let check = checkSyrup("ВИШНЕВЫЙ");
+ if(check===true){
+  volumeSyrup+=50;
   
-  buttonSyrup.addEventListener("click", function(){
+  let check1 = checkVolume(volumeCoffe,volumeSyrup,volumeMilk);
+  if(check1===true){
     countSyrup+=1;
-    if(countSyrup>2){
-      Syrup.placeholder='2';
-    }
-    else{
-      Syrup.placeholder= countSyrup;
-    }
+    boardSyrup.style.visibility = 'visible'
+    buttonSyrup.style.visibility = 'visible';
+   
     
-    boardSyrup.style.visibility = 'visible'; 
-    Syrup.style.visibility = 'visible';
-  })
+      CostSyrup+=35;
+      let AllCost=CostCoffee + CostSyrup+ CostMilk;
+      name2.innerHTML=  "с вишневым сиропом";  
+      name2.style.visibility = 'visible'; 
+      if(countSyrup==2){
+        name2.innerHTML=  "с двойным вишневым сиропом";
+        name2.style.visibility = 'visible'; 
+        boardSyrup.style.visibility = 'visible'
+        buttonSyrup.style.visibility = 'hidden'; 
+      } 
+      costCoffee.placeholder=  AllCost;        
+    
+    
+  }
+  else{
+    volumeSyrup-=50;
+  }
+ }  
+}
+)
 
 
-  buttonClose.addEventListener("click", function(){
-    countSyrup=0;
-  boardSyrup.style.visibility = 'hidden'; 
-  boardMilk.style.visibility = 'hidden'; 
-  board.style.visibility = 'hidden'; 
-  Syrup.style.visibility = 'hidden';
-  name.style.visibility = 'hidden'; 
-  costCoffee.style.visibility = 'hidden';  
+buttonClose.addEventListener("click", function(){
+countSyrup=0;
+countMilk=0;
+coffee1 = 0;
+CostSyrup=0;
+CostMilk=0;
+CostCoffee=0;
+volumeCoffe = 0;
+volumeSyrup=0;
+volumeMilk = 0;
+buttonMilk.style.visibility = 'visible'; 
+boardSyrup.style.visibility = 'hidden'; 
+boardMilk.style.visibility = 'hidden'; 
+board.style.visibility = 'hidden'; 
+name.style.visibility = 'hidden'; 
+name1.style.visibility = 'hidden'; 
+name2.style.visibility = 'hidden'; 
+costCoffee.style.visibility = 'hidden';  
+buttonEspresso.style.visibility = 'visible';
+buttonCappuccino.style.visibility = 'visible'; 
+ buttonLatte.style.visibility = 'visible'; 
+buttonBanana.style.visibility = 'visible'; 
+buttonVanilla.style.visibility ='visible'; 
+ buttonFlet.style.visibility = 'visible'; 
 })
 
 buttonPay.addEventListener("click", function(){
-glasses[glass]--;
+ 
+switch (coffee1) {
+  case 'МОЛОКО':
+    VolumeSyrupMilk['МОЛОКО']-=volumeMilk;
+    break;
+  case 'ВАНИЛЬНЫЙ КАПУЧИНО':
+    VolumeSyrupMilk['ВАНИЛЬНЫЙ']-=50;
+    break;
+  case 'БАНАНОВЫЙ ЛАТТЕ':
+    VolumeSyrupMilk['БАНАНОВЫЙ']-=50;
+    break;
+  default:
+break;
+}
+if(volumeSyrup!==0){
+  VolumeSyrupMilk['ВИШНЕВЫЙ']-=volumeSyrup;
+}
+let allvolume = volumeSyrup + volumeMilk + volumeCoffe;
+let glass=chooseGlass(allvolume);
+glasses[glass]-=1;
+buttonMilk.style.visibility = 'visible'; 
+buttonSyrup.style.visibility = 'hidden'; 
+boardSyrup.style.visibility = 'hidden'; 
+boardMilk.style.visibility = 'hidden'; 
+board.style.visibility = 'hidden'; 
+name.style.visibility = 'hidden'; 
+name1.style.visibility = 'hidden'; 
+name2.style.visibility = 'hidden'; 
+costCoffee.style.visibility = 'hidden';  
+buttonEspresso.style.visibility = 'visible';
+buttonCappuccino.style.visibility = 'visible'; 
+ buttonLatte.style.visibility = 'visible'; 
+buttonBanana.style.visibility = 'visible'; 
+buttonVanilla.style.visibility ='visible'; 
+ buttonFlet.style.visibility = 'visible'; 
+ 
 
 })
 

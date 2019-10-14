@@ -1,132 +1,129 @@
-body{
-    background: url(img/Coffee2.jpg);
-    color: white;
-    background-size: 100%;
+body {
+  background: url(img/Coffee2.jpg);
+  color: white;
+  background-size: 100%;
 }
 
 /*верхняя панель меню*/
-.user-choice{
-    width: 90%;
-    display:flex;
-    flex-direction: row;
-    margin: 2em;
-    background-color: rgb(68, 52, 30);
-    
-    }
+.user-choice {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  margin: 2em;
+  background-color: rgb(68, 52, 30);
+}
 
-.user-choice button img{
-    height: 2rem;
-    object-fit: cover; 
+.user-choice button img {
+  height: 2rem;
+  object-fit: cover;
 }
 .user-choice button {
-    margin: 3rem;
-    height: 3em;
+  margin: 3rem;
+  height: 3em;
 }
 
-.user-choice .drink{
-    display: flex ;
-    height: 6rem;
-    width: 50%;   
-    margin: 2em 0;
-    
+.user-choice .drink {
+  display: flex;
+  height: 6rem;
+  width: 50%;
+  margin: 2em 0;
 }
 
-.user-choice .drink img{
-    width: 6rem;
-    height: 6rem;
-    object-fit: cover;
-    visibility: hidden;   
+.user-choice .drink img {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  visibility: hidden;
 }
 
-
-    .user-choice  input{
-    visibility: hidden;
-    text-align: center;
-    width: 2rem;   
-    margin-left: 1.9em;
-    border-radius:70%; 
+.user-choice input {
+  visibility: hidden;
+  text-align: center;
+  width: 2rem;
+  margin-left: 1.9em;
+  border-radius: 70%;
 }
 
-.user-choice .drink div{
-    margin: 0 5%;    
+.user-choice .drink div {
+  margin: 0 5%;
 }
 .close {
-    border-radius: 100%;
-    border: 0px;
-    background-color: rgb(68, 52, 30);
+  border-radius: 100%;
+  border: 0px;
+  background-color: rgb(68, 52, 30);
 }
-.full{
-    display:flex;
-    flex-direction: column;
-    width: 50%;
+.full {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
 
-.cost, .name {
-    display: flex;
-    flex-direction: row;
-   
+.cost,
+.name {
+  display: flex;
+  flex-direction: row;
 }
-.cost input{
-    margin-left: 1em;
-    border:0;
+.cost input {
+  margin-left: 1em;
+  border: 0;
 }
-#name, #name1, #name2{
-    padding-left:1em; 
+#name,
+#name1,
+#name2 {
+  padding-left: 1em;
 }
 /* основное меню*/
 
-.menu{
-    width: 90%; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    
+.menu {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
-.menu .custom,.author,.additionally{
-    display: flex;
-    width: 100%; 
-    flex-direction: row;
-    justify-content: space-around;
-    text-align: center;
-    margin-left: 4em;
-      
-}
-
-.menu .custom div{
- margin: 1em;   
- width: 30%;
- background-color: rgb(196, 147, 82);
- padding: 1.5em;
+.menu .custom,
+.author,
+.additionally {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+  margin-left: 4em;
 }
 
-.menu .author div{
-    margin: 1em;   
-    width: 30%;
-    background-color: rgb(196, 147, 82);
-    padding: 1.5em;
-   }
+.menu .custom div {
+  margin: 1em;
+  width: 30%;
+  background-color: rgb(196, 147, 82);
+  padding: 1.5em;
+}
 
-   .menu .additionally div{
-    margin: 1em;   
-    width: 30%;
-    background-color: rgb(196, 147, 82);
-    padding: 1.5em;
-   }
+.menu .author div {
+  margin: 1em;
+  width: 30%;
+  background-color: rgb(196, 147, 82);
+  padding: 1.5em;
+}
 
-   
-   .menu .custom div:hover{
-    padding: 2em;
-    margin: 0.5em;
-   }
-   
-   .menu .author div:hover{
-    padding: 2em;
-    margin: 0.5em;
-      }
-   
-      .menu .additionally div:hover{
-        padding: 2em;
-        margin: 0.5em;
-      }
-   
+.menu .additionally div {
+  margin: 1em;
+  width: 30%;
+  background-color: rgb(196, 147, 82);
+  padding: 1.5em;
+}
+
+.menu .custom div:hover {
+  padding: 2em;
+  margin: 0.5em;
+}
+
+.menu .author div:hover {
+  padding: 2em;
+  margin: 0.5em;
+}
+
+.menu .additionally div:hover {
+  padding: 2em;
+  margin: 0.5em;
+}

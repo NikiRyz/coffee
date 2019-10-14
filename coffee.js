@@ -60,11 +60,11 @@ const time = {
 }
 
 //проверяют наличие ингредиентов в кофемашине
-function checkGlasses(){
-      if (glasses[250] < 1) {
+function checkGlasses(glasses){
+      if (glasses['250'] < 1) {
         console.log(`Памятка: Нужно заказать стаканы 250мл`);
       }
-      if (glasses[380] < 1) {
+      if (glasses['380'] < 1) {
         console.log(`Памятка: Нужно заказать стаканы 380мл`);
         return false
       }
@@ -73,8 +73,10 @@ function checkGlasses(){
 
 
 function checkMilk(coffee){
+ // console.log(coffee)
   if(typeof MilkSpending[coffee] !== "undefined"){
-  if (VolumeSyrupMilk["МОЛОКО"]< MilkSpending[coffee.toUpperCase()]){
+   
+  if (VolumeSyrupMilk['МОЛОКО']< MilkSpending[coffee.toUpperCase()]){
       console.log(`Памятка: Нужно заказать молоко`);
       return false
   }
@@ -99,14 +101,16 @@ return newallVolume;
 }
 
 //выбрать объем стакана
-function chooseGlass(allvolume){
+function chooseGlass(allvolume,glasses){
 let glass=0;
-if(allvolume <= 250){
+if(allvolume <= 250 && glasses['250']!==0){
+ // console.log('я взял стакан 250');
   glass=250;
   return glass;
 }
 else {
   glass = 380;
+ // console.log('я взял стакан 380');
   return glass;
 }
 }
@@ -114,8 +118,8 @@ else {
 // проверяет возможность долить в стакан что-то еще
 function checkVolume(coffee,syrup,milk){
   let allvolume=Number(coffee)+Number(syrup)+Number(milk)
-  console.log(allvolume)
-let glass= chooseGlass(allvolume);
+ // console.log(allvolume)
+let glass= chooseGlass(allvolume,glasses);
 console.log(glass)
 if(allvolume<=glass){
 
@@ -132,17 +136,17 @@ return allcost+cost[item];
 }
 
 //проверяют наличие всех ингредиентов для напитках
-function baseDrinks(coffee){
-  let glasses=checkGlasses();
+function baseDrinks(coffee,glasses){
+  let glasses1=checkGlasses(glasses);
   let milk=checkMilk(coffee);
-  if (glasses===false || milk===false){
+  if (glasses1===false || milk===false){
     return false;
   }
   return true;
 }
 
-function authorDrinks(coffee){
-let check = baseDrinks(coffee);
+function authorDrinks(coffee,glasses){
+let check = baseDrinks(coffee,glasses);
 let checksyrup = checkSyrup(syrupCoffee[coffee])
 if (coffee== "ФЛЭТ УАЙТ" && check===false){
   return false;
@@ -156,17 +160,17 @@ return true;
 
 
 //функции для кнопок
-function buttonBaseCoffee(coffee,img,coffee1,costCoffee,name,type){
+function buttonBaseCoffee(coffee,img,coffee1,costCoffee,name,type,glasses){
   let checkIngredients;
   const buttonMilk=document.getElementById('milk'); 
   const buttonSyrup=document.getElementById('syrup');
 
   if(type==='author'){ 
-    checkIngredients= authorDrinks(coffee);
+    checkIngredients= authorDrinks(coffee,glasses);
     buttonMilk.style.visibility = 'hidden'; 
     buttonSyrup.style.visibility = 'hidden'; 
   }
-  else{checkIngredients= baseDrinks(coffee);
+  else{checkIngredients= baseDrinks(coffee,glasses);
     buttonMilk.style.visibility ='visible'; 
     buttonSyrup.style.visibility ='visible'; 
   }
@@ -222,7 +226,7 @@ buttonSyrup.style.visibility = 'hidden';
 
 buttonEspresso.addEventListener("click", function(){
 
-  buttonBaseCoffee("ЭСПРЕССО","img/espresso.png",coffee1,costCoffee,name,"base");
+  buttonBaseCoffee("ЭСПРЕССО","img/espresso.png",coffee1,costCoffee,name,"base",glasses);
   volumeCoffe = Volume["ЭСПРЕССО"];
   CostCoffee = cost["ЭСПРЕССО"];
   name.style.visibility = 'visible'; 
@@ -232,7 +236,7 @@ buttonEspresso.addEventListener("click", function(){
 )
 
 buttonLatte.addEventListener("click", function(){
-  buttonBaseCoffee("ЛАТТЕ","img/latte.png",coffee1,costCoffee,name,"base");
+  buttonBaseCoffee("ЛАТТЕ","img/latte.png",coffee1,costCoffee,name,"base",glasses);
   volumeCoffe = Volume["ЛАТТЕ"];
   CostCoffee = cost["ЛАТТЕ"];
   name.style.visibility = 'visible'; 
@@ -240,7 +244,7 @@ buttonLatte.addEventListener("click", function(){
 })
 
 buttonCappuccino.addEventListener("click", function(){
-  buttonBaseCoffee("КАПУЧИНО","img/cap.png",coffee1,costCoffee,name,"base");
+  buttonBaseCoffee("КАПУЧИНО","img/cap.png",coffee1,costCoffee,name,"base",glasses);
   volumeCoffe = Volume["КАПУЧИНО"];
   CostCoffee = cost["КАПУЧИНО"];
   name.style.visibility = 'visible'; 
@@ -248,7 +252,7 @@ buttonCappuccino.addEventListener("click", function(){
 })
 
 buttonBanana.addEventListener("click", function(){
-  buttonBaseCoffee("БАНАНОВЫЙ ЛАТТЕ","img/banana.png",coffee1,costCoffee,name,"author");
+  buttonBaseCoffee("БАНАНОВЫЙ ЛАТТЕ","img/banana.png",coffee1,costCoffee,name,"author",glasses);
   volumeCoffe = Volume["БАНАНОВЫЙ ЛАТТЕ"];
   CostCoffee = cost["БАНАНОВЫЙ ЛАТТЕ"];
   name.style.visibility ='visible'; 
@@ -256,7 +260,7 @@ buttonBanana.addEventListener("click", function(){
 })
 
 buttonVanilla.addEventListener("click", function(){
-  buttonBaseCoffee("ВАНИЛЬНЫЙ КАПУЧИНО","img/vanilla.png",coffee1,costCoffee,name,"author");
+  buttonBaseCoffee("ВАНИЛЬНЫЙ КАПУЧИНО","img/vanilla.png",coffee1,costCoffee,name,"author",glasses);
   volumeCoffe = Volume["ВАНИЛЬНЫЙ КАПУЧИНО"];
   CostCoffee = cost["ВАНИЛЬНЫЙ КАПУЧИНО"];
   name.style.visibility = 'visible'; 
@@ -264,7 +268,7 @@ buttonVanilla.addEventListener("click", function(){
 })
 
 buttonFlet.addEventListener("click", function(){
-  buttonBaseCoffee("ФЛЭТ УАЙТ","img/flet.png",coffee1,costCoffee,name,"author");
+  buttonBaseCoffee("ФЛЭТ УАЙТ","img/flet.png",coffee1,costCoffee,name,"author",glasses);
   volumeCoffe = Volume["ФЛЭТ УАЙТ"];
   CostCoffee = cost["ФЛЭТ УАЙТ"];
   name.style.visibility = 'visible'; 
@@ -273,42 +277,45 @@ buttonFlet.addEventListener("click", function(){
 
 buttonMilk.addEventListener("click", function(){
 
- let check = checkMilk("МОЛОКО");
+ let check = checkMilk('МОЛОКО');
  
- let check2=checkGlasses();
+ let check2=checkGlasses(glasses);
 
  if(coffee1===0 && check===true && check2===true){
-   console.log(coffee1)
+   //console.log(coffee1)
   countMilk++;
-   if(countMilk==1 &&  VolumeSyrupMilk["МОЛОКО"]-250>=0){
+   if(countMilk==1 &&  VolumeSyrupMilk['МОЛОКО']-250>=0){
+    coffee1='МОЛОКО';
+    buttonMilk.style.visibility = 'hidden'; 
     name1.innerHTML=  "стакан молока 250мл";
     name1.style.visibility = 'visible'; 
     CostCoffee = 125;
     costCoffee.placeholder=  CostCoffee; 
-    volumeMilk =250;
+    volumeMilk = 250;
     boardMilk.style.visibility = 'visible'; 
-    costCoffee.style.visibility = 'visible'; 
-    buttonSyrup.style.visibility = 'visible'; 
-    buttonEspresso.style.visibility = ' hidden';
-    buttonCappuccino.style.visibility = ' hidden'; 
-     buttonLatte.style.visibility = ' hidden'; 
-    buttonBanana.style.visibility = ' hidden'; 
-    buttonVanilla.style.visibility = ' hidden'; 
-     buttonFlet.style.visibility = ' hidden'; 
+    costCoffee.style.visibility = 'visible';  
+    buttonEspresso.style.visibility = 'hidden';
+    buttonCappuccino.style.visibility = 'hidden'; 
+     buttonLatte.style.visibility = 'hidden'; 
+    buttonBanana.style.visibility = 'hidden'; 
+    buttonVanilla.style.visibility = 'hidden'; 
+     buttonFlet.style.visibility = 'hidden'; 
    }
-   if(countMilk==2 &&  VolumeSyrupMilk["МОЛОКО"]-250>=0 ){
-    name1.innerHTML=  "стакан молока 380мл";
-    name1.style.visibility = 'visible'; 
-    CostCoffee =175;
-    costCoffee.placeholder=  CostCoffee;   
-    volumeMilk = 380;
-    buttonSyrup.style.visibility = 'hidden'; 
-   }
+  //  if(countMilk==2 &&  VolumeSyrupMilk['МОЛОКО']-250>=0 ){
+  //   coffee1='МОЛОКО';
+  //   name1.innerHTML=  "стакан молока 380мл";
+  //   name1.style.visibility = 'visible'; 
+  //   CostCoffee =175;
+  //   costCoffee.placeholder=  CostCoffee;   
+  //   volumeMilk = 380;
+  //   buttonSyrup.style.visibility = 'hidden'; 
+  //  }
  }
  else{
   
   if(check===true && check2===true){
-    coffee1="МОЛОКО";
+    
+    coffee1='МОЛОКО';
     countMilk++;
     volumeMilk +=50;
     let check1 = checkVolume(volumeCoffe,volumeSyrup,volumeMilk);
@@ -316,10 +323,11 @@ buttonMilk.addEventListener("click", function(){
     if(check1===true && countMilk===1){
       name1.innerHTML="с молоком";
       name1.style.visibility = 'visible'; 
+      name.style.visibility = 'visible';
+      boardMilk.style.visibility = 'visible'; 
       CostMilk+=25;
       let AllCost=CostCoffee+CostMilk+CostSyrup;
       costCoffee.placeholder=  AllCost; 
-      boardMilk.style.visibility = 'visible'; 
       costCoffee.style.visibility = 'visible'; 
     } 
     if(countMilk>=1){
@@ -394,15 +402,19 @@ buttonVanilla.style.visibility ='visible';
 })
 
 buttonPay.addEventListener("click", function(){
- 
+ let milk='МОЛОКО';
+ let vanilla='ВАНИЛЬНЫЙ КАПУЧИНО';
+ let banana='БАНАНОВЫЙ ЛАТТЕ';
+
 switch (coffee1) {
-  case 'МОЛОКО':
-    VolumeSyrupMilk['МОЛОКО']-=volumeMilk;
+  
+  case milk:
+    VolumeSyrupMilk[ milk]-=volumeMilk;
     break;
-  case 'ВАНИЛЬНЫЙ КАПУЧИНО':
+  case vanilla:
     VolumeSyrupMilk['ВАНИЛЬНЫЙ']-=50;
     break;
-  case 'БАНАНОВЫЙ ЛАТТЕ':
+  case banana:
     VolumeSyrupMilk['БАНАНОВЫЙ']-=50;
     break;
   default:
@@ -412,7 +424,7 @@ if(volumeSyrup!==0){
   VolumeSyrupMilk['ВИШНЕВЫЙ']-=volumeSyrup;
 }
 let allvolume = volumeSyrup + volumeMilk + volumeCoffe;
-let glass=chooseGlass(allvolume);
+let glass=chooseGlass(allvolume,glasses);
 glasses[glass]-=1;
 buttonMilk.style.visibility = 'visible'; 
 buttonSyrup.style.visibility = 'hidden'; 
@@ -430,7 +442,15 @@ buttonBanana.style.visibility = 'visible';
 buttonVanilla.style.visibility ='visible'; 
  buttonFlet.style.visibility = 'visible'; 
  
-
+ countSyrup=0;
+ countMilk=0;
+ coffee1 = 0;
+ CostSyrup=0;
+ CostMilk=0;
+ CostCoffee=0;
+ volumeCoffe = 0;
+ volumeSyrup=0;
+ volumeMilk = 0;
 })
 
 })
